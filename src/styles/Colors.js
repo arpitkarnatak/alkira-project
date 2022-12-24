@@ -3,5 +3,6 @@ export const PrimaryColors = {
     White: '#FFFFFF',
     Black: '#000000',
     LightGray: '#D8DFE4',
-    SelectedTeamGray: '#0000004D'
+    SelectedTeamGray: 'rgba(0, 0, 0, 0.3)',
+    TableRowColor: 'rgb(248, 251, 253)'
 }
