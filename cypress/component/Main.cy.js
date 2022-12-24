@@ -26,4 +26,9 @@ describe('Main.cy.js', () => {
     getByTestId('prev-page-button').click()
     getByTestId('all-teams-list').children().first().should('not.equal', secondPageFirstItem)
   })
+
+  it('Should search for a team when typed on search bar', () => {
+    getByTestId('search-for-team').type('Cleveland')
+    getByTestId('team-row-6').should('be.visible') // Row with Cleveland
+  })
 })
