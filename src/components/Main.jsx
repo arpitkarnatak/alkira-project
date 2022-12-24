@@ -77,7 +77,7 @@ export default function Main() {
 
         <SearchBar
           sx={{ m: 1, width: "25ch" }}
-          data-testid='search-for-team'
+          data-testid="search-for-team"
           InputProps={{
             startAdornment: (
               <InputAdornment position="start">
@@ -85,7 +85,10 @@ export default function Main() {
               </InputAdornment>
             ),
           }}
-          onChange={(e) => setSearchString(e.target.value)}
+          onChange={(e) => {
+            setSearchString(e.target.value);
+            setCurrentPageNumber(0);
+          }}
         />
 
         {isLoadingAllTeamsData && (
@@ -137,27 +140,42 @@ export default function Main() {
                       data-testid={`team-row-${item?.id}`}
                     >
                       <td>
-                        <Bold24 color={PrimaryColors.Black} data-testid={`team-${item?.id}-name`}>
+                        <Bold24
+                          color={PrimaryColors.Black}
+                          data-testid={`team-${item?.id}-name`}
+                        >
                           {item?.name}
                         </Bold24>
                       </td>
                       <td>
-                        <Bold24 color={PrimaryColors.Black} data-testid={`team-${item?.id}-city`}>
+                        <Bold24
+                          color={PrimaryColors.Black}
+                          data-testid={`team-${item?.id}-city`}
+                        >
                           {item?.city}
                         </Bold24>
                       </td>
                       <td>
-                        <Bold24 color={PrimaryColors.Black} data-testid={`team-${item?.id}-abbreviation`}>
+                        <Bold24
+                          color={PrimaryColors.Black}
+                          data-testid={`team-${item?.id}-abbreviation`}
+                        >
                           {item?.abbreviation}
                         </Bold24>
                       </td>
                       <td>
-                        <Bold24 color={PrimaryColors.Black} data-testid={`team-${item?.id}-conference`}>
+                        <Bold24
+                          color={PrimaryColors.Black}
+                          data-testid={`team-${item?.id}-conference`}
+                        >
                           {item?.conference}
                         </Bold24>
                       </td>
                       <td>
-                        <Bold24 color={PrimaryColors.Black} data-testid={`team-${item?.id}-division`}>
+                        <Bold24
+                          color={PrimaryColors.Black}
+                          data-testid={`team-${item?.id}-division`}
+                        >
                           {item?.division}
                         </Bold24>
                       </td>
