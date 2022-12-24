@@ -36,7 +36,7 @@ export const Table = styled.table`
   }
 
   > tbody > tr {
-    background: #f8fbfd;
+    background: ${PrimaryColors.TableRowColor};
     border-radius: 5px;
     margin: 1%;
     border: 5px solid white;

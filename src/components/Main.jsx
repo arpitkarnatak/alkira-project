@@ -1,4 +1,4 @@
-import { InputAdornment, TextField } from "@mui/material";
+import { InputAdornment } from "@mui/material";
 import { Box } from "@mui/system";
 import React, { useState } from "react";
 import { useMutation } from "react-query";
@@ -15,7 +15,6 @@ export default function Main() {
     data: allTeamsData,
     isSuccess: isSuccessfullyLoadedTeams,
     isLoading: isLoadingAllTeamsData,
-    isError: isErrorLoadingAllTeamsData,
   } = useGetAllTeams();
 
   const [openModal, setOpenModal] = useState(false);
@@ -55,7 +54,7 @@ export default function Main() {
     }
   );
   return (
-    <Box padding={"3% 10% 5% 10%"}>
+    <Box padding={"3% 10% 5% 10%"} data-testid="main-component">
       <Box>
         <ViewTeamStats
           open={openModal}
@@ -114,7 +113,7 @@ export default function Main() {
                   </th>
                 </tr>
               </thead>
-              <tbody>
+              <tbody data-testid="all-teams-list">
                 {allTeamsData
                   ?.filter((item) => filterBySearch(searchString, item))
                   ?.slice(
@@ -134,6 +133,7 @@ export default function Main() {
                             ? PrimaryColors.SelectedTeamGray
                             : "",
                       }}
+                      data-testid={`team-row-${item?.id}`}
                     >
                       <td>
                         <Bold24 color={PrimaryColors.Black}>
@@ -172,6 +172,7 @@ export default function Main() {
             >
               <Box display={"flex"} gap="24px">
                 <NavigationButton
+                  data-testid="prev-page-button"
                   onClick={() =>
                     setCurrentPageNumber(Math.max(0, currentPageNumber - 1))
                   }
@@ -201,6 +202,7 @@ export default function Main() {
                   </Bold24>
                 </NavigationButton>
                 <NavigationButton
+                  data-testid="next-page-button"
                   onClick={() =>
                     setCurrentPageNumber(
                       Math.min(
