@@ -1,6 +1,6 @@
 import { InputAdornment } from "@mui/material";
 import { Box } from "@mui/system";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useMutation } from "react-query";
 import { PrimaryColors } from "../styles/Colors";
 import { filterBySearch } from "../helpers";
@@ -22,6 +22,9 @@ export default function Main() {
   const [selectedTeam, setSelectedTeam] = useState(0);
   const maxItemsInPage = 7;
   const [currentPageNumber, setCurrentPageNumber] = useState(0);
+  const [lastPageNumber, setLastPageNumber] = useState(
+    Math.floor(30 / maxItemsInPage)
+  );
 
   const { data: singleTeamData, mutate: getData } = useMutation(
     ["get-team-info"],
@@ -53,6 +56,16 @@ export default function Main() {
       },
     }
   );
+
+  useEffect(() => {
+    setLastPageNumber(
+      Math.floor(
+        allTeamsData?.filter((item) => filterBySearch(searchString, item))
+          .length / maxItemsInPage
+      )
+    );
+  }, [searchString, allTeamsData]);
+  console.log("Change p", currentPageNumber);
   return (
     <Box padding={"3% 10% 5% 10%"} data-testid="main-component">
       <Box>
@@ -192,6 +205,7 @@ export default function Main() {
               <Box display={"flex"} gap="24px">
                 <NavigationButton
                   data-testid="prev-page-button"
+                  disabled={currentPageNumber === 0}
                   onClick={() =>
                     setCurrentPageNumber(Math.max(0, currentPageNumber - 1))
                   }
@@ -202,36 +216,19 @@ export default function Main() {
                   <Bold24 color={PrimaryColors.White}>1</Bold24>
                 </NavigationButton>
                 <NavigationButton
-                  onClick={() =>
-                    setCurrentPageNumber(
-                      Math.floor(
-                        allTeamsData?.filter((item) =>
-                          filterBySearch(searchString, item)
-                        ).length / maxItemsInPage
-                      )
-                    )
-                  }
+                  disabled={lastPageNumber === currentPageNumber}
+                  onClick={() => setCurrentPageNumber(lastPageNumber)}
                 >
                   <Bold24 color={PrimaryColors.White}>
-                    {Math.floor(
-                      allTeamsData?.filter((item) =>
-                        filterBySearch(searchString, item)
-                      ).length / maxItemsInPage
-                    ) + 1}
+                    {lastPageNumber + 1}
                   </Bold24>
                 </NavigationButton>
                 <NavigationButton
                   data-testid="next-page-button"
+                  disabled={currentPageNumber === lastPageNumber}
                   onClick={() =>
                     setCurrentPageNumber(
-                      Math.min(
-                        currentPageNumber + 1,
-                        Math.floor(
-                          allTeamsData?.filter((item) =>
-                            filterBySearch(searchString, item)
-                          ).length / maxItemsInPage
-                        )
-                      )
+                      Math.min(currentPageNumber + 1, lastPageNumber)
                     )
                   }
                 >

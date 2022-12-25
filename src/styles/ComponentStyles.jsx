@@ -5,6 +5,14 @@ export const NavigationButton = styled.button`
   background: ${PrimaryColors.DarkBlue};
   border-radius: 5px;
   padding: 0 20px 0 20px;
+
+  :disabled {
+    opacity: 50%;
+  }
+
+  :hover{
+    cursor: pointer;
+  }
 `;
 
 export const Table = styled.table`
