@@ -28,7 +28,7 @@ export default function ViewTeamStats({
         <Box
           width={"100%"}
           display={"flex"}
-          padding={"2% 5%"}
+          padding={"4% 5%"}
           justifyContent={"space-between"}
           bgcolor={PrimaryColors.LightGray}
         >
