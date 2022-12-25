@@ -62,10 +62,9 @@ export default function Main() {
       Math.floor(
         allTeamsData?.filter((item) => filterBySearch(searchString, item))
           .length / maxItemsInPage
-      )
+      ) || 0
     );
   }, [searchString, allTeamsData]);
-  console.log("Change p", currentPageNumber);
   return (
     <Box padding={"3% 10% 5% 10%"} data-testid="main-component">
       <Box>
@@ -212,7 +211,10 @@ export default function Main() {
                 >
                   <Bold24 color={PrimaryColors.White}>&lt;</Bold24>
                 </NavigationButton>
-                <NavigationButton onClick={() => setCurrentPageNumber(0)}>
+                <NavigationButton
+                  disabled={currentPageNumber === 0}
+                  onClick={() => setCurrentPageNumber(0)}
+                >
                   <Bold24 color={PrimaryColors.White}>1</Bold24>
                 </NavigationButton>
                 <NavigationButton
