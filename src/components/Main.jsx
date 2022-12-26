@@ -217,14 +217,16 @@ export default function Main() {
                 >
                   <Bold24 color={PrimaryColors.White}>1</Bold24>
                 </NavigationButton>
-                <NavigationButton
-                  disabled={lastPageNumber === currentPageNumber}
-                  onClick={() => setCurrentPageNumber(lastPageNumber)}
-                >
-                  <Bold24 color={PrimaryColors.White}>
-                    {lastPageNumber + 1}
-                  </Bold24>
-                </NavigationButton>
+                {lastPageNumber > 0 && (
+                  <NavigationButton
+                    disabled={lastPageNumber === currentPageNumber}
+                    onClick={() => setCurrentPageNumber(lastPageNumber)}
+                  >
+                    <Bold24 color={PrimaryColors.White}>
+                      {lastPageNumber + 1}
+                    </Bold24>
+                  </NavigationButton>
+                )}
                 <NavigationButton
                   data-testid="next-page-button"
                   disabled={currentPageNumber === lastPageNumber}
