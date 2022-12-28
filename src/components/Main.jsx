@@ -35,6 +35,7 @@ export default function Main() {
         `https://www.balldontlie.io/api/v1/games?seasons[]=2021&team_ids[]=${team_id}`
       );
 
+      const selectedTeam = allTeamsData.filter((team) => team.id === team_id)[0]
       const allGamesResponse = await response?.json();
       const totalGames = allGamesResponse?.meta?.total_count;
       const allGamesByTeam = allGamesResponse.data;
@@ -42,8 +43,8 @@ export default function Main() {
         allGamesByTeam[Math.floor(Math.random() * allGamesByTeam.length)];
 
       return {
-        teamName: allTeamsData[team_id - 1]?.name,
-        teamFullName: allTeamsData[team_id - 1]?.full_name,
+        teamName: selectedTeam?.name,
+        teamFullName: selectedTeam?.full_name,
         totalGames: totalGames,
         date: randomGameStats?.date,
         homeTeamName: randomGameStats?.home_team?.name,
