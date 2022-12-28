@@ -14,6 +14,7 @@ export default function useGetAllTeams() {
     },
     {
       refetchOnWindowFocus: false,
+      staleTime: Infinity,
       cacheTime: Infinity,
     }
   );

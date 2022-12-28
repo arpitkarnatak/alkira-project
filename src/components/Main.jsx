@@ -9,6 +9,7 @@ import { Bold24, SearchBar, Title48 } from "../styles/Typography";
 import ViewTeamStats from "./ViewTeamStats";
 import SearchIcon from "@mui/icons-material/Search";
 import { NavigationButton, Table } from "../styles/ComponentStyles";
+import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
 
 export default function Main() {
   const {
@@ -25,6 +26,7 @@ export default function Main() {
   const [lastPageNumber, setLastPageNumber] = useState(
     Math.floor(30 / maxItemsInPage)
   );
+  const [sortByTeamName, setSortByTeamName] = useState(false);
 
   const { data: singleTeamData, mutate: getData } = useMutation(
     ["get-team-info"],
@@ -65,6 +67,10 @@ export default function Main() {
       ) || 0
     );
   }, [searchString, allTeamsData]);
+
+  useEffect(() => {
+    setCurrentPageNumber(0)
+  }, [sortByTeamName])
   return (
     <Box padding={"3% 10% 5% 10%"} data-testid="main-component">
       <Box>
@@ -113,7 +119,14 @@ export default function Main() {
               <thead>
                 <tr>
                   <th>
-                    <Bold24 color={PrimaryColors.White}>Team Name</Bold24>
+                    <Bold24 color={PrimaryColors.White}>
+                      Team Name
+                      <button
+                        onClick={() => setSortByTeamName(!sortByTeamName)}
+                      >
+                        <ArrowDropUpIcon sx={{ color: PrimaryColors.White }} />
+                      </button>
+                    </Bold24>
                   </th>
                   <th>
                     <Bold24 color={PrimaryColors.White}>City</Bold24>
@@ -131,6 +144,9 @@ export default function Main() {
               </thead>
               <tbody data-testid="all-teams-list">
                 {allTeamsData
+                  ?.sort((a, b) =>
+                    sortByTeamName ? (a.name > b.name ? 1 : -1) : {}
+                  )
                   ?.filter((item) => filterBySearch(searchString, item))
                   ?.slice(
                     currentPageNumber * maxItemsInPage,
