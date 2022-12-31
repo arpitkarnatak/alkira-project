@@ -166,7 +166,7 @@ export default function Main() {
                             ? PrimaryColors.SelectedTeamGray
                             : "",
                       }}
-                      data-testid={`team-row-${item?.id}`}
+                      data-testid={`team-row-${item?.abbreviation?.toLowerCase()}`}
                     >
                       <td>
                         <Bold24

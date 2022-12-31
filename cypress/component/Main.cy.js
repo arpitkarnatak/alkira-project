@@ -29,6 +29,6 @@ describe('Main.cy.js', () => {
 
   it('Should search for a team when typed on search bar', () => {
     getByTestId('search-for-team').type('Cleveland')
-    getByTestId('team-row-6').should('be.visible') // Row with Cleveland
+    getByTestId('team-row-cle').should('be.visible')
   })
 })
