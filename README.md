@@ -1,5 +1,7 @@
 # NBA 21 Season Stats
 
+Take-home assignment for Alkira - Frontend engineering role.
+
 ## Deployed Site
 
 https://alkira-project-arpit.netlify.app/
